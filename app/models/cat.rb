@@ -10,4 +10,13 @@ class Cat < ActiveRecord::Base
   def self.colors
     ["blue", "orange", "black", "brown", "white"]
   end
+
+  has_many(
+    :requests,
+    class_name: 'CatRentalRequest',
+    foreign_key: :cat_id,
+    primary_key: :id,
+    dependent: :destroy
+  )
+
 end

@@ -11,23 +11,37 @@ class CatsController < ApplicationController
   end
 
   def create
-    Cat.create!(cat_params)
-    redirect_to cats_url
+    @cat = Cat.new(cat_params)
+    if @cat.save
+      redirect_to cats_url
+    else
+      render :new,
+      status: :unprocessable_entity
+    end
   end
 
   def new
+    @cat = Cat.new
     render :new
   end
 
   def update
     @cat = Cat.find(params[:id])
-    @cat.update_attributes(cat_params)
-    redirect_to cat_url
+    if @cat.update_attributes(cat_params)
+      redirect_to cat_url
+    else
+      render :new,
+      status: :unprocessable_entity
+    end
   end
 
   def edit
     @cat = Cat.find(params[:id])
     render :edit
+  end
+
+  def destroy
+
   end
 
   private
