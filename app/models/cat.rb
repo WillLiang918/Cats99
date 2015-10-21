@@ -12,7 +12,7 @@ class Cat < ActiveRecord::Base
   end
 
   has_many(
-    :requests,
+    :rental_requests,
     class_name: 'CatRentalRequest',
     foreign_key: :cat_id,
     primary_key: :id,

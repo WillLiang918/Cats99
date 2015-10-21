@@ -1,5 +1,12 @@
 class CatsController < ApplicationController
 
+  before_action :require_logged_in
+
+  def require_logged_in
+    redirect_to new_session_url unless logged_in?
+
+  end
+
   def index
     @cats = Cat.all
     render :index
@@ -12,6 +19,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    fail
     if @cat.save
       redirect_to cats_url
     else
